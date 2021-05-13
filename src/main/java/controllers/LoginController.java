@@ -29,10 +29,14 @@ public class LoginController {
     public TextField usernameField;
 
     @FXML
-    public void handleLoginButtonAction() throws InvalidPassword, NoPassword, NoUserName, InvalidUsername {
+    public void handleLoginButtonAction(ActionEvent event) throws IOException, InvalidPassword, NoPassword, NoUserName, InvalidUsername{
         try {
             UserService.checkUser(usernameField.getText(), passwordField.getText());
-            loginMessage.setText("e ok");
+            Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("admin_interface.fxml"));
+            Scene tableScene = new Scene(view2);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(tableScene);
+            window.show();
 
         } catch (InvalidUsername e) {
             loginMessage.setText(e.getMessage());
@@ -50,9 +54,9 @@ public class LoginController {
     }
 
     public void Register(ActionEvent event) throws IOException {
-        Parent view2= FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
-        Scene tableScene=new Scene(view2);
-        Stage window=(Stage)((Node)event.getSource()).getScene().getWindow();
+        Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
+        Scene tableScene = new Scene(view2);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableScene);
         window.show();
     }
