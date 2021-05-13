@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import services.UserService;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class LoginController {
@@ -27,12 +28,20 @@ public class LoginController {
     public PasswordField passwordField;
     @FXML
     public TextField usernameField;
+    private static String text;
 
     @FXML
-    public void handleLoginButtonAction() throws InvalidPassword, NoPassword, NoUserName, InvalidUsername {
+    public void handleLoginButtonAction(ActionEvent event) throws IOException, InvalidPassword, NoPassword, NoUserName, InvalidUsername {
         try {
             UserService.checkUser(usernameField.getText(), passwordField.getText());
-            loginMessage.setText("e ok");
+            if (Objects.equals(UserService.getRole(), "admin")) {
+                Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("admin_interface.fxml"));
+                Scene tableScene = new Scene(view2);
+                text = usernameField.getText();
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(tableScene);
+                window.show();
+            }
 
         } catch (InvalidUsername e) {
             loginMessage.setText(e.getMessage());
@@ -47,13 +56,19 @@ public class LoginController {
             loginMessage.setText(e.getMessage());
 
         }
+
+    }
+
+    public static String getUser() {
+        return text;
     }
 
     public void Register(ActionEvent event) throws IOException {
-        Parent view2= FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
-        Scene tableScene=new Scene(view2);
-        Stage window=(Stage)((Node)event.getSource()).getScene().getWindow();
+        Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
+        Scene tableScene = new Scene(view2);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableScene);
         window.show();
     }
 }
+

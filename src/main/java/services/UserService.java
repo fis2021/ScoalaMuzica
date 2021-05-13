@@ -17,7 +17,7 @@ import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.FileSystemService.getPathToFile;
 
 public class UserService {
-
+    public static String role;
     private static ObjectRepository<User> userRepository;
 
     public static void initDatabase() {
@@ -28,18 +28,35 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
-    public static void addUser(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
+    public static void addUser(String username, String password, String role) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
         checkUserDoesNotAlreadyExist(username);
         checkUserIsNotEmpty(username);
         checkPassIsNotEmpty(password);
-        userRepository.insert(new User(username, encodePassword(username, password)));
-
+        userRepository.insert(new User(username, encodePassword(username, password), role));
     }
 
     public static void checkUser(String username, String password) throws NoUserName, NoPassword, InvalidPassword, InvalidUsername {
         checkUserIsNotEmpty(username);
         checkPassIsNotEmpty(password);
         checkUsername(username, password);
+    }
+
+    public static void deleteInstructor(String username) throws InstructorNotFound {
+        for (User user : userRepository.find()) {
+            if (Objects.equals(username, user.getUsername())) {
+                if (Objects.equals("Instructor", user.getRole())) {
+                    user = null;
+                    break;
+                }
+                throw new InstructorNotFound();
+            }
+        }
+    }
+    public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName{
+        checkUserDoesNotAlreadyExist(username);
+        checkUserIsNotEmpty(username);
+        checkPassIsNotEmpty(password);
+        addUser(username, encodePassword(username, password), "Instructor");
     }
 
     private static void checkUsername(String username, String password) throws InvalidPassword, InvalidUsername {
@@ -50,7 +67,15 @@ public class UserService {
         }
         if (!Objects.equals(encodePassword(username, password), user.getPassword()))
             throw new InvalidPassword();
+        role=user.getRole();
     }
+
+
+    public static String getRole()
+    {
+        return role;
+    }
+
 
     private static void checkUserIsNotEmpty(String username) throws NoUserName {
         if (Objects.equals(username, ""))

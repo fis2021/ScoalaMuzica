@@ -22,7 +22,9 @@
     <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="4" />
 
     <Text fx:id="loginMessage" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+
    <Button mnemonicParsing="false" onAction="#Register" prefHeight="37.0" prefWidth="116.0" text="Register" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+  
      <Button onAction="#handleLoginButtonAction" prefHeight="37.0" prefWidth="99.0" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="7" />
    <columnConstraints>
       <ColumnConstraints />

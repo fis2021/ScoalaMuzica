@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -30,7 +29,7 @@ public class RegistrationController {
     @FXML
     public void handleRegisterAction() {
         try {
-            UserService.addUser(usernameField.getText(), passwordField.getText());
+            UserService.addUser(usernameField.getText(), passwordField.getText(),"Student");
             registrationMessage.setText("Account created successfully!");
         } catch (UsernameAlreadyExistsException e) {
             registrationMessage.setText(e.getMessage());
@@ -40,7 +39,7 @@ public class RegistrationController {
             registrationMessage.setText(e.getMessage());
         }
     }
-
+  
     public void back(ActionEvent event) throws IOException {
         Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         Scene tableScene = new Scene(view2);
