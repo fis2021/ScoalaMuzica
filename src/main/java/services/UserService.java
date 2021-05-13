@@ -17,7 +17,7 @@ import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.FileSystemService.getPathToFile;
 
 public class UserService {
-
+    public static String role;
     private static ObjectRepository<User> userRepository;
 
     public static void initDatabase() {
@@ -67,7 +67,15 @@ public class UserService {
         }
         if (!Objects.equals(encodePassword(username, password), user.getPassword()))
             throw new InvalidPassword();
+        role=user.getRole();
     }
+
+
+    public static String getRole()
+    {
+        return role;
+    }
+
 
     private static void checkUserIsNotEmpty(String username) throws NoUserName {
         if (Objects.equals(username, ""))
