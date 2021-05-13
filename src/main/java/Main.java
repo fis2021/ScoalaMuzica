@@ -3,11 +3,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Instructor;
 import services.FileSystemService;
+import services.InstructorService;
 import services.UserService;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import static services.InstructorService.initDatabase;
 
 public class Main extends Application {
 
