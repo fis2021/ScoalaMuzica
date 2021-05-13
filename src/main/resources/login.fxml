@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" prefHeight="400" prefWidth="400" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
+    <Text id="title-text" text="Start Page" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+
+    <Label text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <TextField fx:id="usernameField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+    <Label text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <PasswordField fx:id="passwordField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+
+    <Text fx:id="loginMessage" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+   <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="116.0" text="Register" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+     <Button onAction="#handleLoginButtonAction" prefHeight="37.0" prefWidth="99.0" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

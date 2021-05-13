@@ -1,17 +1,19 @@
 package services;
 
+import exceptions.*;
 import org.dizitart.no2.Nitrite;
+import org.dizitart.no2.objects.Cursor;
+import org.dizitart.no2.objects.ObjectFilter;
 import org.dizitart.no2.objects.ObjectRepository;
-import exceptions.UsernameAlreadyExistsException;
+import org.dizitart.no2.filters.Filters;
 import model.User;
-import exceptions.NoPassword;
-import exceptions.NoUserName;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
+import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.FileSystemService.getPathToFile;
 
 public class UserService {
@@ -34,13 +36,29 @@ public class UserService {
 
     }
 
-    private static void checkUserIsNotEmpty(String username)throws NoUserName {
-        if(Objects.equals(username, ""))
+    public static void checkUser(String username, String password) throws NoUserName, NoPassword, InvalidPassword, InvalidUsername {
+        checkUserIsNotEmpty(username);
+        checkPassIsNotEmpty(password);
+        checkUsername(username, password);
+    }
+
+    private static void checkUsername(String username, String password) throws InvalidPassword, InvalidUsername {
+
+        User user = userRepository.find(eq("username", username)).firstOrDefault();
+        if (user == null) {
+            throw new InvalidUsername();
+        }
+        if (!Objects.equals(encodePassword(username, password), user.getPassword()))
+            throw new InvalidPassword();
+    }
+
+    private static void checkUserIsNotEmpty(String username) throws NoUserName {
+        if (Objects.equals(username, ""))
             throw new NoUserName(username);
     }
 
-    private static void checkPassIsNotEmpty(String password)throws NoPassword {
-        if(Objects.equals(password,""))
+    private static void checkPassIsNotEmpty(String password) throws NoPassword {
+        if (Objects.equals(password, ""))
             throw new NoPassword(password);
     }
 
