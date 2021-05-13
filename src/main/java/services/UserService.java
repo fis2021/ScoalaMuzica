@@ -42,15 +42,18 @@ public class UserService {
     }
 
     public static void deleteInstructor(String username) throws InstructorNotFound {
+        int ok=0;
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
                 if (Objects.equals("Instructor", user.getRole())) {
+                    ok = 1;
                     user = null;
                     break;
                 }
-                throw new InstructorNotFound();
             }
         }
+        if(ok==0)
+            throw new InstructorNotFound();
     }
 
     public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
@@ -66,11 +69,25 @@ public class UserService {
         if (user == null) {
             throw new InvalidUsername();
         }
-        if (!Objects.equals(encodePassword(username, password), user.getPassword()))
-            throw new InvalidPassword();
         role = user.getRole();
+
+        if (!Objects.equals(encodePassword(username, password), user.getPassword())) {
+            throw new InvalidPassword();
+        }
+
     }
 
+    public static void addAdmin(){
+        try {
+            addUser("admin", "admin", "admin");
+        } catch (UsernameAlreadyExistsException e) {
+            e.printStackTrace();
+        } catch (NoPassword noPassword) {
+            noPassword.printStackTrace();
+        } catch (NoUserName noUserName) {
+            noUserName.printStackTrace();
+        }
+    }
 
     public static String getRole() {
         return role;
