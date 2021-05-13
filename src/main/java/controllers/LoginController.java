@@ -41,6 +41,13 @@ public class LoginController {
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(tableScene);
                 window.show();
+            } else if (Objects.equals(UserService.getRole(), "Instructor")) {
+                Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("instructor_interface.fxml"));
+                Scene tableScene = new Scene(view2);
+                text = usernameField.getText();
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(tableScene);
+                window.show();
             }
 
         } catch (InvalidUsername e) {
@@ -59,7 +66,7 @@ public class LoginController {
 
     }
 
-    public static String getUser() {
+    public static String getCurrectUsername() {
         return text;
     }
 

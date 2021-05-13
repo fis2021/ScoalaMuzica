@@ -1,31 +1,41 @@
 package model;
 
 public class Student {
-    private String student;
-    private int hour;
+    private String studentName;
+    private int entryHour;
+    private int exitHour;
 
-    public Student(String student, int hour) {
-        this.student = student;
-        this.hour=hour;
+    public Student(String studentName, int entryHour, int exitHour) {
+        this.studentName = studentName;
+        this.entryHour = entryHour;
+        this.exitHour = exitHour;
     }
 
     public Student() {
     }
 
-    public String getStudent() {
-        return student;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public int getHour() {
-        return hour;
+    public int getEntryHour() {
+        return entryHour;
     }
 
-    public void setStudent(String student) {
-        this.student = student;
+    public int getExitHour() {
+        return exitHour;
     }
 
-    public void setHour(int hour) {
-        this.hour = hour;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setEntryHour(int entryHour) {
+        this.entryHour = entryHour;
+    }
+
+    public void setExitHour(int exitHour) {
+        this.exitHour = exitHour;
     }
 
     @Override
@@ -35,14 +45,16 @@ public class Student {
 
         model.Student student1 = (model.Student) o;
 
-        if (hour != student1.hour) return false;
-        return student.equals(student1.student);
+        if (entryHour != student1.entryHour) return false;
+        if (exitHour != student1.exitHour) return false;
+        return studentName.equals(student1.studentName);
     }
 
     @Override
     public int hashCode() {
-        int result = student.hashCode();
-        result = 31 * result + hour;
+        int result = studentName.hashCode();
+        result = 31 * result + entryHour;
+        result = 31 * result + exitHour;
         return result;
     }
 }

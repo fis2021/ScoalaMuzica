@@ -1,34 +1,33 @@
 package services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Instructor;
-import model.User;
 import model.Student;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 
-import java.io.IOException;
 import java.util.List;
 
 import static services.FileSystemService.getPathToFile;
 
 public class InstructorService {
 
-    private static List<Student> students;
-    private static ObjectRepository<Instructor> instructorRepository;
+    private static ObjectRepository<Student> studentRepository;
     public static void initDatabase() {
         Nitrite database = Nitrite.builder()
                 .filePath(getPathToFile("registration-example.db").toFile())
-                .openOrCreate("instructor", "instructor");
+                .openOrCreate("student", "student");
 
-        instructorRepository = database.getRepository(Instructor.class);
+        studentRepository = database.getRepository(Student.class);
     }
 
-    public static void loadUsersFromFile() throws IOException {
+    public static List<Student> getStudents(){
+        return studentRepository.find().toList();
+    }
 
-        ObjectMapper objectMapper = new ObjectMapper();
+    public static void displayStudents(){
 
-
+        for (Student student : studentRepository.find()){
+            System.out.println(student.getStudentName()+" "+student.getEntryHour()+" "+student.getExitHour());
+        }
     }
 
 }

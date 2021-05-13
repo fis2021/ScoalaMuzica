@@ -52,7 +52,8 @@ public class UserService {
             }
         }
     }
-    public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName{
+
+    public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
         checkUserDoesNotAlreadyExist(username);
         checkUserIsNotEmpty(username);
         checkPassIsNotEmpty(password);
@@ -67,12 +68,11 @@ public class UserService {
         }
         if (!Objects.equals(encodePassword(username, password), user.getPassword()))
             throw new InvalidPassword();
-        role=user.getRole();
+        role = user.getRole();
     }
 
 
-    public static String getRole()
-    {
+    public static String getRole() {
         return role;
     }
 
