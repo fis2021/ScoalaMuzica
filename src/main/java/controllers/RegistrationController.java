@@ -39,6 +39,7 @@ public class RegistrationController {
             registrationMessage.setText(e.getMessage());
         }
     }
+  
     public void back(ActionEvent event) throws IOException {
         Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         Scene tableScene = new Scene(view2);
