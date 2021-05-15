@@ -1,5 +1,7 @@
 package services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.*;
 import model.Instructor;
 import org.dizitart.no2.Nitrite;
@@ -9,14 +11,18 @@ import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.filters.Filters;
 import model.User;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.DatabaseService.getDatabase;
 import static services.FileSystemService.getPathToFile;
+
 
 public class UserService {
     public static String role;
@@ -40,21 +46,6 @@ public class UserService {
         checkUserIsNotEmpty(username);
         checkPassIsNotEmpty(password);
         checkUsername(username, password);
-    }
-
-    public static void deleteInstructor(String username) throws InstructorNotFound {
-        int ok = 0;
-        for (User user : userRepository.find()) {
-            if (Objects.equals(username, user.getUsername())) {
-                if (Objects.equals("Instructor", user.getRole())) {
-                    ok = 1;
-                    user = null;
-                    break;
-                }
-            }
-        }
-        if (ok == 0)
-            throw new InstructorNotFound();
     }
 
     public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
@@ -84,6 +75,20 @@ public class UserService {
             throw new InvalidPassword();
         }
 
+    }
+
+    public static void deleteInstructor(String username) throws InstructorNotFound {
+        int ok = 0;
+        for (User user : userRepository.find()) {
+            if (Objects.equals(username, user.getUsername()) && Objects.equals("Instructor", user.getRole())) {
+                ok = 1;
+                userRepository.remove(user);
+                userRepository.update(user);
+                break;
+            }
+        }
+        if (ok == 0)
+            throw new InstructorNotFound();
     }
 
     public static void addAdmin() {
