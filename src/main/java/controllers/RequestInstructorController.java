@@ -30,7 +30,7 @@ public class RequestInstructorController {
     public static String text;
     public int enH, exH;
 
-    public void requestInstructor(ActionEvent event) throws IOException, NoUserName, NoEntryHour, NoExitHour {
+    public void requestInstructor(ActionEvent event) throws IOException{
         try {
             checkEnHIsNotEmpty(entryHour.getText());
             checkExHIsNotEmpty(exitHour.getText());
@@ -47,12 +47,24 @@ public class RequestInstructorController {
             requestMessage.setText(e.getMessage());
         } catch (InstructorNotFound e) {
             requestMessage.setText(e.getMessage());
+        } catch (UnacceptedExitHour e) {
+            requestMessage.setText(e.getMessage());
+        } catch (UnacceptedEntryHour e) {
+            requestMessage.setText(e.getMessage());
         }
 
     }
 
     public static String getUser() {
         return text;
+    }
+
+    public int getEnH() {
+        return enH;
+    }
+
+    public int getExH() {
+        return exH;
     }
 
     public void Back(ActionEvent event) throws IOException {
