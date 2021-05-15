@@ -1,9 +1,6 @@
 package controllers;
 
-import exceptions.NoEntryHour;
-import exceptions.NoExitHour;
-import exceptions.NoUserName;
-import exceptions.UsernameAlreadyExistsException;
+import exceptions.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +20,7 @@ import static services.StudentService.checkExHIsNotEmpty;
 public class RequestInstructorController {
 
     @FXML
-    public  TextField usernameField;
+    public TextField usernameField;
     @FXML
     public TextField entryHour;
     @FXML
@@ -32,29 +29,36 @@ public class RequestInstructorController {
     public Text requestMessage;
     public static String text;
     public int enH, exH;
+
     public void requestInstructor(ActionEvent event) throws IOException, NoUserName, NoEntryHour, NoExitHour {
-        try{ checkEnHIsNotEmpty(entryHour.getText());
+        try {
+            checkEnHIsNotEmpty(entryHour.getText());
             checkExHIsNotEmpty(exitHour.getText());
             text = usernameField.getText();
             enH = Integer.parseInt(entryHour.getText());
             exH = Integer.parseInt(exitHour.getText());
             StudentService.addRequest(LoginController.getCurrectUsername(), enH, exH);
             requestMessage.setText("your request has been sent!");
-        }catch (NoUserName e){
+        } catch (NoUserName e) {
             requestMessage.setText(e.getMessage());
-        }catch(NoEntryHour e){
+        } catch (NoEntryHour e) {
             requestMessage.setText(e.getMessage());
-        }catch(NoExitHour e){
+        } catch (NoExitHour e) {
+            requestMessage.setText(e.getMessage());
+        } catch (InstructorNotFound e) {
             requestMessage.setText(e.getMessage());
         }
 
     }
-    public static String getUser(){return text;}
+
+    public static String getUser() {
+        return text;
+    }
 
     public void Back(ActionEvent event) throws IOException {
-        Parent view2= FXMLLoader.load(getClass().getClassLoader().getResource("student_interface.fxml"));
-        Scene tableScene=new Scene(view2);
-        Stage window=(Stage)((Node)event.getSource()).getScene().getWindow();
+        Parent view2 = FXMLLoader.load(getClass().getClassLoader().getResource("student_interface.fxml"));
+        Scene tableScene = new Scene(view2);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableScene);
         window.show();
     }
