@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Instructor;
+import services.DatabaseService;
 import services.FileSystemService;
 import services.InstructorService;
 import services.UserService;
@@ -11,15 +12,14 @@ import services.UserService;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static services.InstructorService.initDatabase;
-
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         initDirectory();
-        UserService.initDatabase();
+        DatabaseService.initDatabase();
         UserService.addAdmin();
+        UserService.addInstructor("instructor", "instructor");
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, 300, 275));

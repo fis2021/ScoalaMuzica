@@ -32,7 +32,6 @@ public class ViewStudentsController {
     private ObservableList<Student> studentsList;
 
     private void setStudents() throws IOException {
-        InstructorService.initDatabase();
         studentsList = FXCollections.observableArrayList(InstructorService.getStudents());
     }
 

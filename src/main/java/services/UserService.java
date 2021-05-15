@@ -1,6 +1,7 @@
 package services;
 
 import exceptions.*;
+import model.Instructor;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectFilter;
@@ -14,18 +15,18 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
+import static services.DatabaseService.getDatabase;
 import static services.FileSystemService.getPathToFile;
 
 public class UserService {
     public static String role;
-    private static ObjectRepository<User> userRepository;
+    private static ObjectRepository<User> userRepository = getDatabase().getRepository(User.class);
+    private static ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
 
-    public static void initDatabase() {
-        Nitrite database = Nitrite.builder()
-                .filePath(getPathToFile("registration-example.db").toFile())
-                .openOrCreate("test", "test");
-
+    public static void loadRepositories() {
+        Nitrite database = getDatabase();
         userRepository = database.getRepository(User.class);
+        instructorRepository = database.getRepository(Instructor.class);
     }
 
     public static void addUser(String username, String password, String role) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
@@ -42,7 +43,7 @@ public class UserService {
     }
 
     public static void deleteInstructor(String username) throws InstructorNotFound {
-        int ok=0;
+        int ok = 0;
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
                 if (Objects.equals("Instructor", user.getRole())) {
@@ -52,15 +53,23 @@ public class UserService {
                 }
             }
         }
-        if(ok==0)
+        if (ok == 0)
             throw new InstructorNotFound();
     }
 
     public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
-        checkUserDoesNotAlreadyExist(username);
-        checkUserIsNotEmpty(username);
-        checkPassIsNotEmpty(password);
-        addUser(username, encodePassword(username, password), "Instructor");
+        try {
+            addUser(username, password, "Instructor");
+            instructorRepository.insert(new Instructor(username));
+        } catch (UsernameAlreadyExistsException e) {
+            e.printStackTrace();
+        } catch (NoPassword noPassword) {
+            noPassword.printStackTrace();
+        } catch (NoUserName noUserName) {
+            noUserName.printStackTrace();
+        }
+
+        System.out.println(instructorRepository);
     }
 
     private static void checkUsername(String username, String password) throws InvalidPassword, InvalidUsername {
@@ -77,9 +86,12 @@ public class UserService {
 
     }
 
-    public static void addAdmin(){
+    public static void addAdmin() {
         try {
-            addUser("admin", "admin", "admin");
+            User user = userRepository.find(eq("username", "admin")).firstOrDefault();
+            if (user == null) {
+                addUser("admin", "admin", "admin");
+            }
         } catch (UsernameAlreadyExistsException e) {
             e.printStackTrace();
         } catch (NoPassword noPassword) {

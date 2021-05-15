@@ -6,18 +6,12 @@ import org.dizitart.no2.objects.ObjectRepository;
 
 import java.util.List;
 
+import static services.DatabaseService.getDatabase;
 import static services.FileSystemService.getPathToFile;
 
 public class InstructorService {
 
-    private static ObjectRepository<Student> studentRepository;
-    public static void initDatabase() {
-        Nitrite database = Nitrite.builder()
-                .filePath(getPathToFile("registration-example.db").toFile())
-                .openOrCreate("student", "student");
-
-        studentRepository = database.getRepository(Student.class);
-    }
+    private static ObjectRepository<Student> studentRepository = getDatabase().getRepository(Student.class);
 
     public static List<Student> getStudents(){
         return studentRepository.find().toList();
