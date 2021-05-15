@@ -1,9 +1,13 @@
 package model;
 
+import org.dizitart.no2.objects.Id;
+
 public class Student {
-    private String studentName;
     private int entryHour;
     private int exitHour;
+
+    @Id
+    private String studentName;
 
     public Student(String studentName, int entryHour, int exitHour) {
         this.studentName = studentName;

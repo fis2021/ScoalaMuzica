@@ -2,6 +2,7 @@ package services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import controllers.LoginController;
 import exceptions.*;
 import model.Student;
 import model.Instructor;
@@ -34,17 +35,23 @@ public class StudentService {
             throw new NoUserName(username);
     }
 
-    public static void addRequest(String username, int enH, int exH) throws NoUserName, NoExitHour, NoEntryHour, IOException, InstructorNotFound {
+    public static void addRequest(String username, int enH, int exH) throws NoUserName, NoExitHour, NoEntryHour, IOException, InstructorNotFound, UnacceptedEntryHour, UnacceptedExitHour {
+        String s = "", s1 = "";
         String instructor_user = RequestInstructorController.getUser();
         checkUserIsNotEmpty(instructor_user);
 
         Instructor instructor = instructorRepository.find(eq("username", instructor_user)).firstOrDefault();
-        if(instructor == null){
+        if (instructor == null) {
             throw new InstructorNotFound();
         }
         List<Student> instructor_requests = instructor.getRequests();
         checkUserIsNotEmpty(username);
+        s = s + enH;
+        s1 = s1 + exH;
+        checkValidEntryHour(s);
+        checkValidExitHour(s1);
         instructor_requests.add(new Student(username, enH, exH));
+        instructorRepository.update(instructor);
     }
 
     public static void checkEnHIsNotEmpty(String enH) throws NoEntryHour {
@@ -55,6 +62,38 @@ public class StudentService {
     public static void checkExHIsNotEmpty(String exH) throws NoExitHour {
         if (Objects.equals(exH, ""))
             throw new NoExitHour(exH);
+    }
+
+    public static void checkValidEntryHour(String enH) throws UnacceptedEntryHour, IOException, InstructorNotFound {
+        Instructor instructor = instructorRepository.find(eq("username", RequestInstructorController.getUser())).firstOrDefault();
+        if (instructor == null) {
+            throw new InstructorNotFound();
+        }
+        requests = instructor.getRequests();
+        for (Student student : requests) {
+            if (Objects.equals(LoginController.getCurrectUsername(), student.getStudentName()) &&
+                    ((Integer.parseInt(enH) == student.getEntryHour())
+                            || (Integer.parseInt(enH) > student.getEntryHour()
+                            && Integer.parseInt(enH) < student.getExitHour()))) {
+                throw new UnacceptedEntryHour();
+            }
+        }
+    }
+
+    public static void checkValidExitHour(String exH) throws UnacceptedExitHour, IOException, InstructorNotFound {
+        Instructor instructor = instructorRepository.find(eq("username", RequestInstructorController.getUser())).firstOrDefault();
+        if (instructor == null) {
+            throw new InstructorNotFound();
+        }
+        requests = instructor.getRequests();
+        for (Student student : requests) {
+            if (Objects.equals(LoginController.getCurrectUsername(), student.getStudentName()) &&
+                    ((Integer.parseInt(exH) == student.getExitHour())
+                            || (Integer.parseInt(exH) > student.getEntryHour()
+                            && Integer.parseInt(exH) < student.getExitHour()))) {
+                throw new UnacceptedExitHour();
+            }
+        }
     }
 
 }
