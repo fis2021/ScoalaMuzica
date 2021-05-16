@@ -46,7 +46,6 @@ public class InstructorService {
         students = instructor.getStudents();
     }
 
-
     public static void addStudent(String name, int h1, int h2) {
         ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
         students.add(new Student(name, h1, h2));

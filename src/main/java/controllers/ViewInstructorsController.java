@@ -26,7 +26,7 @@ import static services.DatabaseService.getDatabase;
 
 public class ViewInstructorsController {
 
-    private static ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
+    public static ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
 
     @FXML
     public TableView<Instructor> instructorTable;

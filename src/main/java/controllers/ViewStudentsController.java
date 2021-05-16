@@ -32,14 +32,14 @@ public class ViewStudentsController {
     @FXML
     public TableColumn<Student, Double> studentExitHourColumn;
 
-    private ObservableList<Student> studentsList;
+    public ObservableList<Student> studentsList;
 
-    private void setStudents() throws IOException {
+    public void setStudents(){
         studentsList = FXCollections.observableArrayList(InstructorService.getStudents());
     }
 
     @FXML
-    public void initialize() throws IOException, InstructorNotFound {
+    public void initialize() throws InstructorNotFound {
         loadInstructor();
         setStudents();
         studentNameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
