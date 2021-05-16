@@ -32,6 +32,7 @@ public class MessageService {
     }
 
     public static void loadMessages(String studentName) {
+        messages = new ArrayList<>();
         for(Instructor instructor : instructorRepository.find().toList()){
             for(Student student: instructor.getStudents()){
                 if(studentName.equals(student.getStudentName())){
