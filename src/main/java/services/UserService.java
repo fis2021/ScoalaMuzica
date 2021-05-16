@@ -49,6 +49,20 @@ public class UserService {
         checkUsername(username, password);
     }
 
+    public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
+        try {
+            addUser(username, password, "Instructor");
+            instructorRepository.insert(new Instructor(username));
+        } catch (UsernameAlreadyExistsException e) {
+            e.printStackTrace();
+        } catch (NoPassword noPassword) {
+            noPassword.printStackTrace();
+        } catch (NoUserName noUserName) {
+            noUserName.printStackTrace();
+        }
+    }
+
+
     private static void checkUsername(String username, String password) throws InvalidPassword, InvalidUsername {
 
         User user = userRepository.find(eq("username", username)).firstOrDefault();

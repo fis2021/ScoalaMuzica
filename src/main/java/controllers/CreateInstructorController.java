@@ -36,7 +36,7 @@ public class CreateInstructorController {
 
     public void handleCreationButton(ActionEvent event) {
         try {
-            InstructorService.addInstructor(usernameField.getText(), passwordField.getText());
+            UserService.addInstructor(usernameField.getText(), passwordField.getText());
             creationMessage.setText("Account created successfully!");
         } catch (UsernameAlreadyExistsException e) {
             creationMessage.setText(e.getMessage());

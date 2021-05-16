@@ -26,7 +26,7 @@ public class InstructorService {
     private static List<Student> students;
     private static List<Student> requests;
 
-    private static String instructorUsername = LoginController.getCurrectUsername();
+    private static String instructorUsername = LoginController.getCurrentUsername();
 
 
     public static List<Student> getStudents() {
@@ -46,18 +46,6 @@ public class InstructorService {
         students = instructor.getStudents();
     }
 
-    public static void addInstructor(String username, String password) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
-        try {
-            addUser(username, password, "Instructor");
-            instructorRepository.insert(new Instructor(username));
-        } catch (UsernameAlreadyExistsException e) {
-            e.printStackTrace();
-        } catch (NoPassword noPassword) {
-            noPassword.printStackTrace();
-        } catch (NoUserName noUserName) {
-            noUserName.printStackTrace();
-        }
-    }
 
     public static void addStudent(String name, int h1, int h2) {
         students.add(new Student(name, h1, h2));

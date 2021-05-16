@@ -19,7 +19,7 @@ public class Main extends Application {
         initDirectory();
         DatabaseService.initDatabase();
         UserService.addAdmin();
-        InstructorService.addInstructor("instr", "instr");
+        UserService.addInstructor("instr", "instr");
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, 300, 275));

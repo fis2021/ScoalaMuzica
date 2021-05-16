@@ -75,7 +75,7 @@ public class LoginController {
 
     }
 
-    public static String getCurrectUsername() {
+    public static String getCurrentUsername() {
         return text;
     }
 

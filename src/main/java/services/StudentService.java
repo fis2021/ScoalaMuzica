@@ -71,7 +71,7 @@ public class StudentService {
         }
         requests = instructor.getRequests();
         for (Student student : requests) {
-            if (Objects.equals(LoginController.getCurrectUsername(), student.getStudentName()) &&
+            if (Objects.equals(LoginController.getCurrentUsername(), student.getStudentName()) &&
                     ((Integer.parseInt(enH) == student.getEntryHour())
                             || (Integer.parseInt(enH) > student.getEntryHour()
                             && Integer.parseInt(enH) < student.getExitHour()))) {
@@ -87,7 +87,7 @@ public class StudentService {
         }
         requests = instructor.getRequests();
         for (Student student : requests) {
-            if (Objects.equals(LoginController.getCurrectUsername(), student.getStudentName()) &&
+            if (Objects.equals(LoginController.getCurrentUsername(), student.getStudentName()) &&
                     ((Integer.parseInt(exH) == student.getExitHour())
                             || (Integer.parseInt(exH) > student.getEntryHour()
                             && Integer.parseInt(exH) < student.getExitHour()))) {
