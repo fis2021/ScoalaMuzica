@@ -1,8 +1,8 @@
 package model;
 
 public class Message {
-    String instructor;
-    String message;
+    private String instructor;
+    private String message;
 
     public Message() {
 

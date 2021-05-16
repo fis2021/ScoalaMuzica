@@ -20,8 +20,7 @@ import static services.FileSystemService.getPathToFile;
 import static services.UserService.addUser;
 
 public class InstructorService {
-
-    private static ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
+    
     public static Instructor instructor;
     private static List<Student> students;
     private static List<Student> requests;
@@ -38,6 +37,7 @@ public class InstructorService {
     }
 
     public static void loadInstructor() throws InstructorNotFound {
+        ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
         instructor = instructorRepository.find(eq("username", instructorUsername)).firstOrDefault();
         if (instructor == null) {
             throw new InstructorNotFound();
@@ -48,12 +48,14 @@ public class InstructorService {
 
 
     public static void addStudent(String name, int h1, int h2) {
+        ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
         students.add(new Student(name, h1, h2));
         instructor.refreshNumberOfStudents();
         instructorRepository.update(instructor);
     }
 
     public static void deleteRequest(String username) {
+        ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
         for (Student student : requests) {
             if (Objects.equals(student.getStudentName(), username)) {
                 requests.remove(student);

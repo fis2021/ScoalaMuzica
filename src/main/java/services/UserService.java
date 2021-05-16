@@ -62,7 +62,6 @@ public class UserService {
         }
     }
 
-
     private static void checkUsername(String username, String password) throws InvalidPassword, InvalidUsername {
 
         User user = userRepository.find(eq("username", username)).firstOrDefault();
