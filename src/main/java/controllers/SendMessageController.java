@@ -17,6 +17,6 @@ public class SendMessageController {
 
     public void handleSendingButton(ActionEvent actionEvent) throws StudentNotFound {
         MessageService.addMessage(messageField.getText());
-        messageField.setText("Message sent");
+        sendingMessage.setText("Message sent");
     }
 }

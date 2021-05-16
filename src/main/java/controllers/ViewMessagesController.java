@@ -40,7 +40,7 @@ public class ViewMessagesController {
         messageTable.setItems(messageList);
     }
 
-    private ObservableList<Message> messageList;
+    public ObservableList<Message> messageList;
 
     public void setMessages() {
         MessageService.loadMessages(LoginController.getCurrentUsername());

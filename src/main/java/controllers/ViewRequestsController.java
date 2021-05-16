@@ -46,7 +46,7 @@ public class ViewRequestsController {
         studentTable.setItems(requestList);
     }
 
-    private ObservableList<Student> requestList;
+    public ObservableList<Student> requestList;
 
     public void setRequests() throws InstructorNotFound {
         InstructorService.loadInstructor();
