@@ -27,7 +27,7 @@ public class MessageService {
 
     public static void addMessage(String message) {
         Student student = null;
-        String instructor_username = LoginController.getCurrectUsername();
+        String instructor_username = LoginController.getCurrentUsername();
         Instructor instructor = instructorRepository.find(eq("username", instructor_username)).firstOrDefault();
         String studentToSend = ViewRequestsController.getStudentToSend();
         for (Student stud : instructor.getStudents()){
@@ -37,7 +37,7 @@ public class MessageService {
         }
         if(student != null){
             List<Message> messages = student.getMessages();
-            messages.add(new Message(LoginController.getCurrectUsername(), message));
+            messages.add(new Message(LoginController.getCurrentUsername(), message));
         }
         instructorRepository.update(instructor);
     }

@@ -3,13 +3,13 @@ package services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.LoginController;
-import exceptions.CouldNotWriteUsersException;
-import exceptions.InstructorNotFound;
+import exceptions.*;
 import model.Instructor;
 import model.Student;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +17,7 @@ import java.util.Objects;
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.DatabaseService.getDatabase;
 import static services.FileSystemService.getPathToFile;
+import static services.UserService.addUser;
 
 public class InstructorService {
 
@@ -25,7 +26,7 @@ public class InstructorService {
     private static List<Student> students;
     private static List<Student> requests;
 
-    private static String instructorUsername = LoginController.getCurrectUsername();
+    private static String instructorUsername = LoginController.getCurrentUsername();
 
 
     public static List<Student> getStudents() {
@@ -45,8 +46,10 @@ public class InstructorService {
         students = instructor.getStudents();
     }
 
+
     public static void addStudent(String name, int h1, int h2) {
         students.add(new Student(name, h1, h2));
+        instructor.refreshNumberOfStudents();
         instructorRepository.update(instructor);
     }
 

@@ -37,7 +37,7 @@ public class RequestInstructorController {
             text = usernameField.getText();
             enH = Integer.parseInt(entryHour.getText());
             exH = Integer.parseInt(exitHour.getText());
-            StudentService.addRequest(LoginController.getCurrectUsername(), enH, exH);
+            StudentService.addRequest(LoginController.getCurrentUsername(), enH, exH);
             requestMessage.setText("your request has been sent!");
         } catch (NoUserName e) {
             requestMessage.setText(e.getMessage());
