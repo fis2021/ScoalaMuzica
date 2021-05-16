@@ -1,26 +1,19 @@
 package services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.LoginController;
 import exceptions.*;
 import model.Instructor;
 import model.Student;
-import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.DatabaseService.getDatabase;
-import static services.FileSystemService.getPathToFile;
-import static services.UserService.addUser;
 
 public class InstructorService {
-    
+
     public static Instructor instructor;
     private static List<Student> students;
     private static List<Student> requests;

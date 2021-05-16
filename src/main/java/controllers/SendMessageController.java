@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import services.MessageService;
 
-import java.io.IOException;
 
 public class SendMessageController {
     @FXML

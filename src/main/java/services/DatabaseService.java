@@ -1,7 +1,5 @@
 package services;
 
-import model.Instructor;
-import model.User;
 import org.dizitart.no2.Nitrite;
 
 import static services.FileSystemService.getPathToFile;
@@ -19,7 +17,7 @@ public class DatabaseService {
                 .openOrCreate("test", "test");
     }
 
-    public static Nitrite getDatabase(){
+    public static Nitrite getDatabase() {
         return database;
     }
 }

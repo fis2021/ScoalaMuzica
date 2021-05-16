@@ -1,20 +1,15 @@
 package services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.LoginController;
 import controllers.ViewRequestsController;
 import exceptions.InstructorNotFound;
-import exceptions.StudentNotFound;
 import model.Instructor;
 import model.Message;
 import model.Student;
 import org.dizitart.no2.objects.ObjectRepository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.DatabaseService.getDatabase;

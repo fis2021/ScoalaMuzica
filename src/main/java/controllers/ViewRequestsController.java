@@ -67,7 +67,6 @@ public class ViewRequestsController {
                         btn.setOnAction((ActionEvent event) -> {
                             Student student = getTableView().getItems().get(getIndex());
                             studentToSend = student.getStudentName();
-                            System.out.println(studentToSend);
                             try {
                                 InstructorService.loadInstructor();
                                 InstructorService.addStudent(student.getStudentName(), student.getEntryHour(), student.getExitHour());
@@ -128,7 +127,6 @@ public class ViewRequestsController {
                         btn.setOnAction((ActionEvent event) -> {
                             Student student = getTableView().getItems().get(getIndex());
                             studentToSend = student.getStudentName();
-                            System.out.println(studentToSend);
                             try {
                                 studentTable.getItems().remove(getTableView().getItems().get(getIndex()));
                                 InstructorService.deleteRequest(student.getStudentName());
