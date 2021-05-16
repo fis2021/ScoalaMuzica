@@ -4,15 +4,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewStudentsController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewStudentsController">
     <children>
-        <BorderPane layoutX="14.0" prefHeight="400.0" prefWidth="600.0">
+        <BorderPane layoutX="14.0" prefHeight="400.0" prefWidth="654.0">
             <center>
-                <TableView fx:id="clientTable" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="studentTable" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="clientEntryHourColumn" prefWidth="90.0" text="Entry Hour" />
-                        <TableColumn fx:id="clientExitHourColumn" prefWidth="90.0" text="Exit Hour" />
-                        <TableColumn fx:id="clientNameColumn" prefWidth="90.0" sortType="DESCENDING" text="Name" />
+                        <TableColumn fx:id="studentEntryHourColumn" prefWidth="90.0" text="Entry Hour" />
+                        <TableColumn fx:id="studentExitHourColumn" prefWidth="90.0" text="Exit Hour" />
+                        <TableColumn fx:id="studentNameColumn" prefWidth="90.0" sortType="DESCENDING" text="Name" />
                     </columns>
                 </TableView>
             </center>
