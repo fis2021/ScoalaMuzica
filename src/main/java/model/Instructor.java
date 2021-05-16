@@ -9,6 +9,9 @@ public class Instructor {
     private List<Student> requests;
     private List<Student> students;
 
+    private int numberOfStudents;
+
+
     @Id
     private String username;
 
@@ -16,6 +19,7 @@ public class Instructor {
         this.username = username;
         this.requests = new ArrayList<>();
         this.students = new ArrayList<>();
+        this.numberOfStudents = 0;
     }
 
     public Instructor() {
@@ -44,4 +48,18 @@ public class Instructor {
     public void setRequests(List<Student> requests) {
         this.requests = requests;
     }
+
+    public int getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
+    public void setNumberOfStudents(int numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public void refreshNumberOfStudents(){
+        numberOfStudents = students.size();
+    }
+
+
 }

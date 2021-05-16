@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import services.InstructorService;
 import services.UserService;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class CreateInstructorController {
 
     public void handleCreationButton(ActionEvent event) {
         try {
-            UserService.addInstructor(usernameField.getText(), passwordField.getText());
+            InstructorService.addInstructor(usernameField.getText(), passwordField.getText());
             creationMessage.setText("Account created successfully!");
         } catch (UsernameAlreadyExistsException e) {
             creationMessage.setText(e.getMessage());
