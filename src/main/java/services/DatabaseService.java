@@ -13,8 +13,8 @@ public class DatabaseService {
 
     public static void initDatabase() {
         database = Nitrite.builder()
-                .filePath(getPathToFile("registration-example.db").toFile())
-                .openOrCreate("test", "test");
+                .filePath(getPathToFile("SM.db").toFile())
+                .openOrCreate("admin", "admin");
     }
 
     public static Nitrite getDatabase() {
