@@ -2,17 +2,22 @@ package model;
 
 import org.dizitart.no2.objects.Id;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student {
-    private int entryHour;
-    private int exitHour;
+    private List<Message> messages;
 
     @Id
     private String studentName;
+    private int entryHour;
+    private int exitHour;
 
     public Student(String studentName, int entryHour, int exitHour) {
         this.studentName = studentName;
         this.entryHour = entryHour;
         this.exitHour = exitHour;
+        this.messages = new ArrayList<>();
     }
 
     public Student() {
@@ -24,6 +29,14 @@ public class Student {
 
     public int getEntryHour() {
         return entryHour;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public int getExitHour() {
@@ -60,5 +73,14 @@ public class Student {
         result = 31 * result + entryHour;
         result = 31 * result + exitHour;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "student='" + studentName + '\'' +
+                ", entryHour=" + entryHour +
+                ", exitHour=" + exitHour +
+                '}';
     }
 }

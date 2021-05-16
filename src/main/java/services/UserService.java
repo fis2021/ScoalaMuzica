@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.*;
 import model.Instructor;
+import model.Student;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectFilter;
@@ -59,8 +60,6 @@ public class UserService {
         } catch (NoUserName noUserName) {
             noUserName.printStackTrace();
         }
-
-        System.out.println(instructorRepository);
     }
 
     private static void checkUsername(String username, String password) throws InvalidPassword, InvalidUsername {
@@ -82,8 +81,9 @@ public class UserService {
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername()) && Objects.equals("Instructor", user.getRole())) {
                 ok = 1;
+                Instructor instructor = instructorRepository.find(eq("username", username)).firstOrDefault();
                 userRepository.remove(user);
-                userRepository.update(user);
+                instructorRepository.remove(instructor);
                 break;
             }
         }

@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewStudentsController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewRequestsController">
     <children>
-        <BorderPane layoutX="14.0" prefHeight="400.0" prefWidth="654.0">
+        <BorderPane layoutX="14.0" prefHeight="400.0" prefWidth="673.0">
             <center>
                 <TableView fx:id="studentTable" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <columns>

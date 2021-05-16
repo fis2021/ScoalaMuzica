@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.InstructorNotFound;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,8 @@ import model.Student;
 import services.InstructorService;
 
 import java.io.IOException;
+
+import static services.InstructorService.loadInstructor;
 
 public class ViewStudentsController {
 
@@ -36,8 +39,10 @@ public class ViewStudentsController {
     }
 
     @FXML
-    public void initialize() {
-        studentNameColumn.setCellValueFactory(new PropertyValueFactory<>("Student"));
+    public void initialize() throws IOException, InstructorNotFound {
+        loadInstructor();
+        setStudents();
+        studentNameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         studentEntryHourColumn.setCellValueFactory(new PropertyValueFactory<>("entryHour"));
         studentExitHourColumn.setCellValueFactory(new PropertyValueFactory<>("exitHour"));
         studentTable.setItems(studentsList);
