@@ -19,7 +19,6 @@ import javafx.util.Callback;
 import model.Message;
 import services.InstructorService;
 import services.MessageService;
-import services.UserService;
 
 import java.io.IOException;
 

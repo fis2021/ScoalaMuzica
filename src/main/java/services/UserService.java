@@ -1,40 +1,23 @@
 package services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.*;
 import model.Instructor;
-import model.Student;
 import org.dizitart.no2.Nitrite;
-import org.dizitart.no2.objects.Cursor;
-import org.dizitart.no2.objects.ObjectFilter;
 import org.dizitart.no2.objects.ObjectRepository;
-import org.dizitart.no2.filters.Filters;
 import model.User;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.DatabaseService.getDatabase;
-import static services.FileSystemService.getPathToFile;
-
 
 public class UserService {
     public static String role;
     private static ObjectRepository<User> userRepository = getDatabase().getRepository(User.class);
     private static ObjectRepository<Instructor> instructorRepository = getDatabase().getRepository(Instructor.class);
-
-    public static void loadRepositories() {
-        Nitrite database = getDatabase();
-        userRepository = database.getRepository(User.class);
-        instructorRepository = database.getRepository(Instructor.class);
-    }
 
     public static void addUser(String username, String password, String role) throws UsernameAlreadyExistsException, NoPassword, NoUserName {
         checkUserDoesNotAlreadyExist(username);

@@ -1,7 +1,5 @@
 package services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.LoginController;
 import exceptions.*;
 import model.Student;
@@ -11,13 +9,11 @@ import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
 import static org.dizitart.no2.objects.filters.ObjectFilters.eq;
 import static services.DatabaseService.getDatabase;
-import static services.FileSystemService.getPathToFile;
 
 public class StudentService {
     public static String username;
